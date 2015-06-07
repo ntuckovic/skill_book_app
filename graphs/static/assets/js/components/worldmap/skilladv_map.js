@@ -1,6 +1,7 @@
 function skilladvMap(opts){
 
-    var dataLink = opts.source;
+    var dataLink = opts.source || false;
+    var dataSource = opts.data || false;
 
     var height = (opts.height)? opts.height : 500, 
         width = (opts.width)? opts.width : 700, 
@@ -148,20 +149,37 @@ function skilladvMap(opts){
                 buckets = data;
 
                 $(".loading-map-state").show();
-                d3.json(dataLink, function(error, data) {
-                    countriesDict = data;
+
+                if (dataLink) {
+
+                    d3.json(dataLink, function(error, data) {
+                        countriesDict = data;
+
+                        init();
+                        // on load of data trigger first property in list
+                        $("#prop_toggle a").first().trigger("click");
+                        reset();
+
+                        $(".loading-map-state").hide();
+                    });
+
+                }
+                else if (dataSource) {
+                    countriesDict = dataSource;
 
                     init();
                     // on load of data trigger first property in list
-                    $("#prop_toggle a").first().trigger("click")
+                    $("#prop_toggle a").first().trigger("click");
                     reset();
 
                     $(".loading-map-state").hide();
-                });
+
+                }
 
             });
         }
         if(countryFocus=="yes"){
+
             $.ajax({
                 url: countryDataUrl+"0",
                 beforeSend: function(){
@@ -175,6 +193,7 @@ function skilladvMap(opts){
 
                 $(".loading-map-state").hide();
             });
+
         };
             
 

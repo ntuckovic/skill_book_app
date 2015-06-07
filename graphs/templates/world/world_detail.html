@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block head_script %}
+
+<link href="{% static 'assets/css/custom.css' %}" rel="stylesheet" type="text/css">
+
+<!-- Load dependencies -->
+<script src="{% static 'assets/vendor/d3/d3.min.js' %}" charset="utf-8"></script>
+<script src="{% static 'assets/vendor/topojson/topojson.js' %}"></script>
+<script src="{% static 'assets/vendor/underscore/underscore-min.js' %}"></script>
+<script src="{% static 'assets/vendor/colorbrewer/colorbrewer.js' %}"></script>
+<script src="{% static 'assets/vendor/datamaps/dist/datamaps.world.js' %}"></script>
+
+{% endblock %}
+
+
+{% block container %}
+    <div class="row">
+        <div class="col-md-12">
+        
+            <h1 class="page-heading">World Map</h1>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">   
+
+            <div id="prop_toggle" class="mapview hidden">
+                <ul class="prop-button-group">
+                    <li><a id="prop-toggle-skills" href="#" class="btn btn-default btn-xs btn-primary button primary">Skills</a></li>
+                    <li><a id="prop-toggle-country" href="#" class="btn btn-default btn-xs button primary">Country</a></li>
+                </ul>
+            </div>
+
+            <div id="country-name-wrap" class="countryview">
+                <span class="country-name"></span>
+            </div>
+
+            <div id="skills-table" class="countryview hidden">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Skill</th>
+                            <th>N</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>test</td>
+                            <td>100</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="map-container"></div>
+        </div>
+        <div class="col-md-4">
+            <a class="btn btn-success js-save png" href="#">Save as PNG</a>
+            <!-- <a class="btn btn-success js-save jpg" href="#">Save as Jpeg</a>-->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <pre class="source-preview"> </pre>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <img id='img1'>
+        </div>
+        <div class="col-md-12">
+            <canvas id="canvas" width="750" height="531"></canvas>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block bottom-script %}
+<script src="{% static 'assets/vendor/export/rgbcolor.js' %}"></script>
+<script src="{% static 'assets/vendor/export/canvg.js' %}"></script>
+<script>
+    var bucketsFile = "{% static 'assets/js/components/worldmap/buckets.json' %}";
+</script>
+<script type="text/javascript" src="{% static 'assets/js/components/worldmap/skilladv_map.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/js/components/map_to_image.js' %}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        // var dataLink = "{% static 'assets/js/components/worldmap/skill_data.json' %}";
+
+        var data = {{ object.data|safe }};
+        var outcome = "{{ outcome|safe }}";
+        var object_id = "{{ object_id }}";
+
+        //call worldmap
+        skilladvMap({
+            // "source": dataLink,
+            "data": data,
+            "country_focus": "no",
+            "tooltips": false,
+            "default_fill": "#FFFFFF",
+            "border_width": 1,
+            "border_color": "#000000",
+            "custom_colors": colorbrewer.Greys[9]
+        });
+
+        $(".js-save").on("click", function(){
+            MapToImage({
+                container: "#map-container",
+                trigger: ".js-save",
+                graph_id: object_id
+            });
+        });
+
+
+
+    });
+</script>
+{% endblock %}

@@ -3,6 +3,7 @@ var MapToImage = function (opts){
 
     var $container = $(opts.container) || $('#map-container');
     var $trigger = $(opts.trigger) || $("none");
+    var object_id = opts.graph_id || "";
 
     $container.children(".datamaps-hoverover").remove();
 
@@ -17,11 +18,9 @@ var MapToImage = function (opts){
     var theImage = canvas.toDataURL('image/png');
     $('#img1').attr('src', theImage);
 
-    console.log($trigger);
-
     $trigger.attr("href", theImage)
         .attr("download", function() {
-           return "world_map.png";
+           return "world_map"+ object_id +".png";
         });
 
 
