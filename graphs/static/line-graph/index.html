@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Line graph</title>
+
+    <!-- Bootstrap -->
+    <link href="../assets/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="../assets/vendor/export/StackBlur.js"></script>
+    <script src="../assets/vendor/export/rgbcolor.js"></script>
+    <script src="../assets/vendor/export/canvg.js"></script>
+
+    <!-- Load c3.css -->
+    <link href="../assets/vendor/c3/c3.css" rel="stylesheet" type="text/css">
+    <link href="../assets/css/custom.css" rel="stylesheet" type="text/css">
+
+    <!-- Load d3.js and c3.js -->
+    <script src="../assets/vendor/d3/d3.min.js" charset="utf-8"></script>
+    <script src="../assets/vendor/c3/c3.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                
+                <h1 class="page-heading">Line Graph</h1>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="js-graph-container"></div>
+            </div>
+            <div class="col-md-6">
+                <a class="btn btn-success js-save png" href="#">Save as PNG</a>
+                <!-- <a class="btn btn-success js-save jpg" href="#">Save as Jpeg</a>-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <pre>
+{ 
+    y_min: -20,
+    y_max: 30,
+    y_step: 10,
+    years: [ 2010, 2011, 2012, 2013, 2014 ],
+    data:   {
+                columns:    [      
+                                ['line1', 0, 10, 15, 18, 25],
+                                ['line2', 0, 10, 0, -5, -10]
+                            ]
+            }
+}
+                </pre>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-6">
+                <img id='img1'>
+                <canvas id="canvas" width="555" height="531"></canvas>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../assets/vendor/underscore/underscore-min.js"></script>
+    <script src="../assets/js/components/line_graph.js" type="text/javascript"></script>
+    <script src="../assets/js/components/c3_to_image.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            var line_graph = new LineGraph({ 
+                y_min: -20,
+                y_max: 30,
+                y_step: 10,
+                years: [ 2010, 2011, 2012, 2013, 2014 ],
+                data:   {
+                            columns:    [      
+                                            ['line1', 0, 10, 15, 18, 25],
+                                            ['line2', 0, 10, 0, -5, -10]
+                                        ]
+                        },
+                color_pattern: ["#878773"]
+            });
+
+            line_graph.render();
+
+            // save to png
+            $(".js-save").on("click", function(e){
+                createChartImages({});
+            });
+
+        });
+    </script>
+  </body>
+</html>

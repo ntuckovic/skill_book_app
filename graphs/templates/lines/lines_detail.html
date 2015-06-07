@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block head_script %}
+
+    <script src="{% static 'assets/vendor/export/StackBlur.js' %}"></script>
+    <script src="{% static 'assets/vendor/export/rgbcolor.js' %}"></script>
+    <script src="{% static 'assets/vendor/export/canvg.js' %}"></script>
+
+    <!-- Load c3.css -->
+    <link href="{% static 'assets/vendor/c3/c3.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/css/custom.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- Load d3.js and c3.js -->
+    <script src="{% static 'assets/vendor/d3/d3.min.js' %}" charset="utf-8"></script>
+    <script src="{% static 'assets/vendor/c3/c3.js' %}"></script>
+
+{% endblock %}
+
+{% block container %}
+    <div class="row">
+        <div class="col-md-12">
+            
+            <h1 class="page-heading">{{ title }}</h1>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="js-graph-container"></div>
+        </div>
+        <div class="col-md-6">
+            <a class="btn btn-success js-save png" href="#">Save as PNG</a>
+            <!-- <a class="btn btn-success js-save jpg" href="#">Save as Jpeg</a>-->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <pre class="source-preview"></pre>
+        </div>
+        <div class="col-md-6">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+
+        </div>
+        <div class="col-md-6">
+            <img id='img1'>
+            <canvas id="canvas" width="555" height="531"></canvas>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bottom-script %}
+    <script src="{% static 'assets/vendor/underscore/underscore-min.js' %}"></script>
+    <script src="{% static 'assets/js/components/line_graph.js' %}" type="text/javascript"></script>
+    <script src="{% static 'assets/js/components/c3_to_image.js' %}" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            var line_graph = new LineGraph({{ object.data|safe }});
+
+            line_graph.color_pattern = ["#878773"]
+
+            var outcome = "{{ outcome|safe }}";
+            var object_id = "{{ object_id }}";
+
+
+            // save to png
+            $(".js-save").on("click", function(e){
+                createChartImages({graph_id:object_id});
+            });
+
+            line_graph.render().done(function(){
+                var link = createChartImages({get_link:true});
+                if (outcome == "link") {
+                    window.location.href = link
+                }
+                else if (outcome == "download"){
+                    var a = document.createElement('a');
+                    a.href = link;
+                    a.download = "line_graph"+ object_id +".png";
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }
+
+
+            });
+
+            
+
+
+        });
+    </script>
+{% endblock %}

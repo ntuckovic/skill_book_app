@@ -1,0 +1,29 @@
+{
+	"United States of America":{
+		"v1": 100
+	},
+	"Canada":{
+		"v1": 51.51
+	},
+	"China":{
+		"v1": 5.32
+	},
+    "Germany":{
+        "v1": 36.3
+    },
+    "Italy":{
+        "v1": 70
+    },
+    "Russia":{
+        "v1": 10
+    },
+    "Argentina":{
+        "v1":60
+    },
+    "Democratic Republic of the Congo":{
+        "v1":16
+    },
+    "Australia":{
+        "v1":86
+    }
+}
