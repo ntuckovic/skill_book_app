@@ -20,3 +20,10 @@ DJango based application for generate of graph images using skill_book js graphs
       Render Graph and start downloading of PNG file: http://127.0.0.1:8000/graphs/lines/120/?outcome=download
       
       Render Graph and redirect directly to newly generated PNG file:  http://127.0.0.1:8000/graphs/lines/120/?outcome=link
+      
+2.  World graph:
+    Link for world graphs goes something like this:
+        http://127.0.0.1:8000/graphs/world/451/
+
+    Everything else is pretty same as for line graph, you can use:
+    http://127.0.0.1:8000/graphs/world/451?outcome=download and http://127.0.0.1:8000/graphs/world/451?outcome=link and functions are same as for line graph.
