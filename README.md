@@ -10,8 +10,8 @@ DJango based application for generate of graph images using skill_book js graphs
 
 ### Using app:
  1. Line graph:
-    For example if you are intrested in Line graph under id **136** you can get it under following link on your dev      server:
-      http://127.0.0.1:8000/graphs/lines/136/
+    For example if you are intrested in Line graph under id **120** you can get it under following link on your dev      server:
+      http://127.0.0.1:8000/graphs/lines/120/
 
     You can save graph as PNG file if you click on green button.
     
