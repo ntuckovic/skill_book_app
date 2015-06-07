@@ -18,10 +18,15 @@ var MapToImage = function (opts){
     var theImage = canvas.toDataURL('image/png');
     $('#img1').attr('src', theImage);
 
-    $trigger.attr("href", theImage)
-        .attr("download", function() {
-           return "world_map"+ object_id +".png";
-        });
-
+    if (opts.getLink) {
+        return theImage;
+    }
+    else {
+        $trigger.attr("href", theImage)
+                .attr("download", function() {
+                   return "world_map"+ object_id +".png";
+                });
+        }
+    
 
 };

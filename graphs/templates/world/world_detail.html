@@ -104,9 +104,31 @@
             "default_fill": "#FFFFFF",
             "border_width": 1,
             "border_color": "#000000",
-            "custom_colors": colorbrewer.Greys[9]
+            "custom_colors": colorbrewer.Greys[9],
         });
 
+
+        setTimeout(function(){
+            var link =  MapToImage({
+                        container: "#map-container",
+                        graph_id: object_id,
+                        getLink: true
+                    });
+
+            if (outcome == "link") {
+                window.location.href = link
+            }
+            else if (outcome == "download"){
+                var a = document.createElement('a');
+                a.href = link;
+                a.download = "world_graph"+ object_id +".png";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+
+        }, 1000);
+    
         $(".js-save").on("click", function(){
             MapToImage({
                 container: "#map-container",

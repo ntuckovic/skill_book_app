@@ -87,7 +87,7 @@ function skilladvMap(opts){
 //                delete mapObject["projection"];
 //                mapObject["projection"] == "equirectangular";
 //            }
-
+            
             // Creating the map with FINAL options
             map = new Datamap(mapObject);
 
